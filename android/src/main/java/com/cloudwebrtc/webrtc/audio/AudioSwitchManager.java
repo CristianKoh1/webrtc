@@ -148,7 +148,7 @@ public class AudioSwitchManager {
     }
 
     public void enableSpeakerphone(boolean enable) {
-        updatePreferredDeviceList();
+        updatePreferredDeviceList(enable);
         audioManager.setSpeakerphoneOn(enable);
     }
 
