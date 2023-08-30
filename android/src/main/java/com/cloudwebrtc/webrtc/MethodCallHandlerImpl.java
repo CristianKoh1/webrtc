@@ -1283,13 +1283,18 @@ public class MethodCallHandlerImpl implements MethodCallHandler, StateProvider {
     }
 
     List<? extends AudioDevice> audioOutputs = AudioSwitchManager.instance.availableAudioDevices();
+    AudioDevice selectedAudioDevice = AudioSwitchManager.instance.selectedAudioDevice();
 
     for (AudioDevice audioOutput : audioOutputs) {
       ConstraintsMap audioOutputMap = new ConstraintsMap();
+      boolean isEnabled = selectedAudioDevice != null && selectedAudioDevice.equals(audioOutput);
+      
       audioOutputMap.putString("label", audioOutput.getName());
       audioOutputMap.putString("deviceId", AudioDeviceKind.fromAudioDevice(audioOutput).typeName);
       audioOutputMap.putString("facing", "");
       audioOutputMap.putString("kind", "audiooutput");
+      audioOutputMap.putBoolean("enabled", isEnabled);
+
       array.pushMap(audioOutputMap);
     }
 
